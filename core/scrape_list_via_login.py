@@ -8,15 +8,15 @@ PASSWORD = "<ENTER YOUR PASSWORD>"
 SCHOOL_ID = "<YOUR STD ID>"
 
 LOGIN_URL = "https://sso.teachable.com/secure/"+SCHOOL_ID+"/users/sign_in?clean_login=true&reset_purchase_session=1"
-print(LOGIN_URL)
+COURSE_URL = sys.argv[1]
+print(COURSE_URL)
 f = open("contents.url", "r")
 
 def main():
     session_requests = requests.session()
 
     # Get login csrf token
-    result = session_requests.get(LOGIN_URL)
-    tree = html.fromstring(result.text)
+    tree = etree.HTML(session_requests.get(COURSE_URL).content)
     authenticity_token = list(set(tree.xpath("//meta[@name='csrf-token']/@content")))[0]
     authenticity_param = list(set(tree.xpath("//meta[@name='csrf-param']/@content")))[0]
 
@@ -38,8 +38,8 @@ def main():
         if(c%2 == 0):
             print(inp.split('\n')[0])
         else:
-            URL = inp.split('\n')[0]
-            result = session_requests.get(URL, headers = dict(referer = URL))
+            LECTURE_URL = inp.split('\n')[0]
+            result = session_requests.get(URL, headers = dict(referer = LECTURE_URL))
             soup = BeautifulSoup(result.content, 'lxml')
             link = soup.find_all('a', class_='download')
             if(len(link) >= 1):
