@@ -72,7 +72,7 @@
 
 ```shell
     chmod 777 ./playlist_downloader.sh
-    playlist_downloaded.sh <topic_url> <topic_name>
+    playlist_downloader.sh <topic_url> <topic_name>
 ```
 7. A new file named "<topic_name>.txt" will be generated
 8. Make a folder and copy the curl_script.sh and <topic_name>.txt to it
