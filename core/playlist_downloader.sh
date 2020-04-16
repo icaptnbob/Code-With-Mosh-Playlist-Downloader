@@ -17,7 +17,7 @@ output=$2
 output=$(echo -e "$output" | tr -d '[:space:]')
 output="$output.txt"
 echo $output
-python scrape_list_via_login.py > $output
+python scrape_list_via_login.py $1 > $output
 
 rm contents.url
 
