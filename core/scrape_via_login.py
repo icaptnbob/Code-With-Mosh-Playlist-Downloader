@@ -13,8 +13,7 @@ def main():
     session_requests = requests.session()
 
     # Get login csrf token
-    result = session_requests.get(LOGIN_URL)
-    tree = html.fromstring(result.text)
+    tree = etree.HTML(session_requests.get(URL).content)
     authenticity_token = list(set(tree.xpath("//meta[@name='csrf-token']/@content")))[0]
     authenticity_param = list(set(tree.xpath("//meta[@name='csrf-param']/@content")))[0]
 
